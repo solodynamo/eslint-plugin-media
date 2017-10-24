@@ -7,20 +7,46 @@
     "eslintplugin",
     "eslint-plugin"
   ],
+  "engines": {
+    "node": ">=0.10.0"
+  },
   "author": "...",
   "main": "lib/index.js",
+  "directories": {
+    "test": "tests"
+  },
   "scripts": {
-    "test": "mocha tests --recursive"
+    "test": "cross-env BABEL_ENV=test NODE_PATH=./src nyc -s mocha -R dot --recursive tests/src/rules/ -t 5s",
+    "watch": "cross-env NODE_PATH=./src mocha --watch --compilers js:babel-register --recursive tests/src/rules/",
+    "prepublish": "gulp prepublish"
   },
   "dependencies": {
     "requireindex": "~1.1.0"
   },
   "devDependencies": {
+    "babel-eslint": "next",
+    "babel-plugin-istanbul": "^2.0.1",
+    "babel-preset-es2015-argon": "latest",
+    "babel-register": "6.24.1",
+    "babylon": "6.15.0",
+    "cross-env": "^5.1.0",
     "eslint": "~3.9.1",
-    "mocha": "^3.1.2"
+    "gulp": "^3.9.0",
+    "gulp-babel": "6.1.2",
+    "istanbul": "^0.4.0",
+    "linklocal": "^2.6.0",
+    "mocha": "^3.1.2",
+    "nyc": "^8.3.0",
+    "redux": "^3.0.4",
+    "rimraf": "2.5.2",
+    "sinon": "^2.3.2"
   },
-  "engines": {
-    "node": ">=0.10.0"
+  "nyc": {
+    "require": [
+      "babel-register"
+    ],
+    "sourceMap": false,
+    "instrument": false
   },
   "license": "ISC"
 }
